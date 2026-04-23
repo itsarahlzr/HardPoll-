@@ -1,0 +1,21 @@
+name: comparison
+description: >
+  Side-by-side comparison of all four polling strategies on a single host.
+access_pattern: steady
+nodes:
+  - node_id: node-interrupt
+    sensor: {rate_hz: 10000.0}
+    poller: {mode: interrupt, interrupt_wake_ns: 8000}
+    injector: {base_ns: 500, jitter_ns: 50}
+  - node_id: node-software
+    sensor: {rate_hz: 10000.0}
+    poller: {mode: software}
+    injector: {base_ns: 500, jitter_ns: 50}
+  - node_id: node-fpga
+    sensor: {rate_hz: 10000.0}
+    poller: {mode: fpga}
+    injector: {base_ns: 500, jitter_ns: 50}
+  - node_id: node-adaptive
+    sensor: {rate_hz: 10000.0}
+    poller: {mode: adaptive, idle_iterations_before_backoff: 1024}
+    injector: {base_ns: 500, jitter_ns: 50}

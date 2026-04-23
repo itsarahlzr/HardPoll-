@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hardpoll"
+version = "0.1.0"
+description = "Adaptive-polling distributed-latency simulation framework"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [{name = "Sarah LAZRI"}]
+dependencies = [
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[project.scripts]
+hardpoll = "hardpoll.cli:main"
+
+[tool.setuptools]
+packages = ["hardpoll"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

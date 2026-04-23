@@ -1,0 +1,23 @@
+name: burst-cluster
+description: >
+  Four-node cluster with bursty access pattern; every node uses adaptive
+  polling so idle periods fall back to short sleeps while active periods
+  stay in busy-poll territory.
+access_pattern: burst
+nodes:
+  - node_id: node-00
+    sensor: {rate_hz: 20000.0}
+    poller: {mode: adaptive, idle_iterations_before_backoff: 512}
+    injector: {base_ns: 400, jitter_ns: 40}
+  - node_id: node-01
+    sensor: {rate_hz: 20000.0}
+    poller: {mode: adaptive, idle_iterations_before_backoff: 512}
+    injector: {base_ns: 400, jitter_ns: 40}
+  - node_id: node-02
+    sensor: {rate_hz: 20000.0}
+    poller: {mode: fpga}
+    injector: {base_ns: 300, jitter_ns: 30}
+  - node_id: node-03
+    sensor: {rate_hz: 20000.0}
+    poller: {mode: software}
+    injector: {base_ns: 300, jitter_ns: 30}
