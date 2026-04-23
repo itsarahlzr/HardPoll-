@@ -49,7 +49,9 @@ void print_usage() {
         "  --duration-ms=N       run duration in ms (ignored if --server)\n"
         "  --pin-cpu=N           CPU to pin the polling thread\n"
         "  --backoff-ns=N        adaptive backoff starting sleep (ns)\n"
+        "  --max-backoff-ns=N    adaptive backoff upper bound (ns)\n"
         "  --idle-iters=N        empty iters before backoff in adaptive mode\n"
+        "  --interrupt-wake-ns=N simulated IRQ wake latency for interrupt mode\n"
         "  --base-latency-ns=N   deterministic injector latency (ns)\n"
         "  --jitter-ns=N         injector jitter bound (ns)\n"
         "  --server              run as TCP control server\n"
@@ -76,8 +78,12 @@ bool parse(int argc, char** argv, Args& a) {
         else if (k == "--pin-cpu") a.node.poller.pin_cpu = std::stoi(v);
         else if (k == "--backoff-ns")
             parse_uint(v, a.node.poller.backoff_sleep_ns);
+        else if (k == "--max-backoff-ns")
+            parse_uint(v, a.node.poller.max_backoff_sleep_ns);
         else if (k == "--idle-iters")
             parse_uint(v, a.node.poller.idle_iterations_before_backoff);
+        else if (k == "--interrupt-wake-ns")
+            parse_uint(v, a.node.poller.interrupt_wake_ns);
         else if (k == "--base-latency-ns")
             parse_uint(v, a.node.injector.base_ns);
         else if (k == "--jitter-ns")

@@ -51,6 +51,12 @@ void Node::stop() {
     logger_.close();
 }
 
+void Node::notify_interrupt() {
+    if (poller_ && cfg_.poller.mode == PollMode::Interrupt) {
+        poller_->notify_interrupt();
+    }
+}
+
 void Node::wait_for(std::uint64_t events) {
     while (published_.load(std::memory_order_relaxed) < events) {
         std::this_thread::sleep_for(std::chrono::milliseconds(5));

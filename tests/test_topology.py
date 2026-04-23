@@ -50,6 +50,16 @@ def test_cli_args_include_mode_and_rate(tmp_path: Path) -> None:
     assert "--duration-ms=250" in args
 
 
+def test_cli_args_forward_all_poller_knobs(tmp_path: Path) -> None:
+    topo = homogeneous_topology("cli", num_nodes=1, mode=PollMode.INTERRUPT)
+    node = topo.nodes[0]
+    node.poller.interrupt_wake_ns = 12_345
+    node.poller.max_backoff_sleep_ns = 54_321
+    args = node.cli_args(tmp_path / "t.jsonl", duration_ms=100)
+    assert "--interrupt-wake-ns=12345" in args
+    assert "--max-backoff-ns=54321" in args
+
+
 def test_summarize_handles_empty_and_values() -> None:
     empty = summarize([])
     assert empty.count == 0

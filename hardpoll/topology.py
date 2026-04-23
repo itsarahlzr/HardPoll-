@@ -77,7 +77,9 @@ class NodeSpec:
             f"--duration-ms={duration_ms}",
             f"--pin-cpu={self.poller.pin_cpu}",
             f"--backoff-ns={self.poller.backoff_sleep_ns}",
+            f"--max-backoff-ns={self.poller.max_backoff_sleep_ns}",
             f"--idle-iters={self.poller.idle_iterations_before_backoff}",
+            f"--interrupt-wake-ns={self.poller.interrupt_wake_ns}",
             f"--base-latency-ns={self.injector.base_ns}",
             f"--jitter-ns={self.injector.jitter_ns}",
         ]

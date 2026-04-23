@@ -30,6 +30,10 @@ public:
     void stop();
     void wait_for(std::uint64_t events);
 
+    // Deliver a simulated hardware interrupt to the poller (only meaningful
+    // in Interrupt mode; a no-op otherwise).
+    void notify_interrupt();
+
     const NodeConfig& config() const { return cfg_; }
     std::uint64_t events_published() const { return published_.load(); }
 

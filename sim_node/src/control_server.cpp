@@ -108,8 +108,7 @@ std::string ControlServer::handle_line(const std::string& line) {
         node_->stop();
         out << "{\"ok\":true}\n";
     } else if (cmd == "interrupt") {
-        // Forwarded to the poller via the node; only meaningful in Interrupt
-        // mode. We expose it here for tests/benchmarks.
+        node_->notify_interrupt();
         out << "{\"ok\":true}\n";
     } else if (cmd == "shutdown") {
         node_->stop();
